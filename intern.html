@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+  <label style="font-weight: bold;" for="fname">First name:</label><br>
+  <input placeholder="Enter your name here..." type="text" id="fname" name="fname"><br>
+  <label style="font-weight: bold;"  for="lname">Last name:</label><br>
+  <input placeholder="Enter your surname here..." type="text" id="lname" name="lname">
+<div style="margin-top: 20px;">
+  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+  <label style="font-weight: bold;" for="vehicle1"> I have a bike</label><br>
+  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+  <label style="font-weight: bold;" for="vehicle2"> I have a car</label><br>
+  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+  <label style="font-weight: bold;" for="vehicle3"> I have a boat</label>
+</div>
+
+
+  <label for="pet-select"></label>
+
+  <select style="display: block;margin-top: 40px;margin-bottom: 20px;font-weight: bold;" name="pets" id="car-select">
+       <option  value="">Please select</option>
+       <option value="Volvo">Volvo</option>
+       <option value="saab">Saab</option>
+       <option value="Fiat">Fiat</option>
+       <option value="Audi">Audi</option>
+       </select>
+
+
+     <textarea id="msg" placeholder= "Enter your message" name="name"rows="10" cols="30"></textarea><br>
+
+<div style="margin-top: 20px;">
+  <input type="radio" id="html" name="fav_language" value="HTML">
+  <label style="font-weight: bold;" for="html">HTML</label><br>
+  <input type="radio" id="css" name="fav_language" value="CSS">
+  <label style="font-weight: bold;" for="css">CSS</label><br>
+  <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+  <label style="font-weight: bold;" for="javascript">JavaScript</label><br><br>
+  <input style="font-weight: bold;" type="submit" value="Submit" onclick="saveFile()">
+</div>
+
+</body>
+<script>
+    let saveFile = () => {
+       
+    	
+        // Get the data from each element on the form.
+    	const firstname = document.getElementById('fname');
+        const lastname = document.getElementById('lname');
+        const vehicle1 = document.getElementById('vehicle1');
+        const vehicle2 = document.getElementById('vehicle2');
+        const vehicle3 = document.getElementById('vehicle3');
+        const car = document.getElementById('car-select');
+        const msg = document.getElementById('msg');
+        const language1=document.getElementById('html');
+        const language2=document.getElementById('css');
+        const language3=document.getElementById('javascript');
+        
+        if(!(!!firstname.value && !!lastname.value && (!!vehicle1.checked || !!vehicle2.checked || !!vehicle3.checked) && !!car.value && !!msg.value && (!!language1.checked || !!language2.checked || !!language3.checked )))
+        {
+            alert("please fill all fields.")
+            return;
+        }
+        
+        // This variable stores all the data.
+        let data = 
+            '\r FirstName: ' + firstname.value + ' \r\n ' + 
+            '\r LastName: ' + lastname.value + ' \r\n ' + 
+            '\r vehicle1: ' + vehicle1.value + " "+ vehicle1.checked + ' \r\n ' + 
+            '\r vehicle2: ' + vehicle2.value + " "+ vehicle2.checked + ' \r\n ' + 
+            '\r vehicle3: ' + vehicle3.value + " "+ vehicle2.checked + ' \r\n ' + 
+            'Country: ' + car.value + ' \r\n ' + 
+            'Message: ' + msg.value+
+            '\r language1: ' + language1.value + " "+ language1.checked + ' \r\n ' + 
+            '\r language2: ' + language2.value + " "+ language2.checked + ' \r\n ' + 
+            '\r language3: ' + language3.value + " "+ language3.checked + ' \r\n ' 
+            ;
+        
+        // Convert the text to BLOB.
+        const textToBLOB = new Blob([data], { type: 'text/plain' });
+        const sFileName = 'formData.txt';	   // The file to save the data.
+
+        let newLink = document.createElement("a");
+        newLink.download = sFileName;
+
+        if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(textToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+
+        newLink.click(); 
+    }
+</script>
+
+</html>
